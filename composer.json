@@ -1,0 +1,30 @@
+{
+  "name": "zihad/easyarray",
+  "description": "A simple php package to handle your array easily and elegantly",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Zihad\\Easyarray\\": "src/"
+    },
+    "files": [
+      "src/helper.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "muhammadZihad",
+      "email": "zihad.muhammadar@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require-dev": {
+    "pestphp/pest": "^2.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
