@@ -3,6 +3,9 @@
 This package will allow developers to interact with complex and nested arrays easily. Any array can be converted into an EasyArray object and then access the array items like object properties.
 
 # Installation:
+`composer require zihad/easyarray`
+
+# Usage
 
 ```
 use Zihad\Easyarray\EasyArray;
