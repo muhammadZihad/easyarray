@@ -48,10 +48,39 @@ class EasyArray implements ArrayAccess, IteratorAggregate
     {
         // check if the array is nested flagged
         $this->hasNested = $this->hasNested || $hasNested;
+        if ($this->hasNested == true) {
+            $hayStack = $this->prepareHaystack($hayStack);
+        }
         // merge the new items to the exisitng array
         $this->data = array_merge($this->data, $hayStack);
 
         return $this;
+    }
+
+    /**
+     * Prepare nested data to store in EasyArray
+     *
+     * @param array $hayStack
+     * @return array
+     */
+    protected function prepareHaystack(array $hayStack): array
+    {
+        $preparedData = [];
+        foreach ($hayStack as $index => $value) {
+            $preparedData[$index] = $this->processData($value);
+        }
+        return $preparedData;
+    }
+
+    /**
+     * Process data depending on if it is array or scaler
+     *
+     * @param mixed $data
+     * @return mixed
+     */
+    private function processData(mixed $data): mixed
+    {
+        return is_array($data) ? new static($data, $this->hasNested) : $data;
     }
 
 
@@ -77,20 +106,17 @@ class EasyArray implements ArrayAccess, IteratorAggregate
         if (!array_key_exists($key, $this->data)) {
             return null;
         }
-        return $this->prepareData($key);
+        return $this->data[$key];
     }
 
     /**
      * Prepare data to return
-     * @param string $key
-     * @return self|mixed
+     * @param mixed $data
+     * @return mixed
      */
-    public function prepareData(string $key): mixed
+    protected function prepareData(mixed $data): mixed
     {
-        if (is_array($this->data[$key]) && $this->hasNested == true) {
-            return new static($this->data[$key], true);
-        }
-        return $this->data[$key];
+        return $data instanceof EasyArray ? $data->toArray() : $data;
     }
 
 
@@ -169,7 +195,11 @@ class EasyArray implements ArrayAccess, IteratorAggregate
      */
     public function toArray(): array
     {
-        return $this->data;
+        $preparedData = [];
+        foreach ($this->data as $index => $value) {
+            $preparedData[$index] = $this->prepareData($value);
+        }
+        return $preparedData;
     }
 
 
