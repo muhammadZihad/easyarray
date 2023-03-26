@@ -3,6 +3,7 @@
 This package will allow developers to interact with complex and nested arrays easily. Any array can be converted into an EasyArray object and then access the array items like object properties.
 
 # Installation:
+
 `composer require zihad/easyarray`
 
 # Usage
@@ -80,4 +81,44 @@ $easyArray = easyArray([
         'framework' => 'Laravel'
     ]
 ]);
+
+
+// You can use EasyArray in foreach and nested foreach loops
+$easyArray = easyArray([
+    'phones' => [
+        'featured' => [
+            'used' => [
+                'Nokia 3310',
+                'Oppo'
+            ],
+            'fresh' => [
+                'Nokia 1110',
+                'Huawei 11'
+            ]
+        ],
+        'smartphone' => [
+            'used' => [
+                'iPhone 11',
+                'Samsung s20'
+            ],
+            'fresh' => [
+                'iPhone 13 pro',
+                'One plus 9'
+            ]
+        ]
+    ]
+], true);
+
+foreach ($easyArray as $category) {
+    foreach ($category as $name => $subCategory) {
+        foreach ($subCategory as $index => $phones) {
+            var_dump(sprintf(
+                "%s > %s phones: %s",
+                ucfirst($name),
+                ucfirst($index),
+                implode(', ', $phones->toArray())
+            ));
+        }
+    }
+}
 ```
