@@ -13,9 +13,9 @@ namespace Zihad\Easyarray;
 use IteratorAggregate;
 use ArrayIterator;
 use ArrayAccess;
+use Countable;
 
-
-class EasyArray implements ArrayAccess, IteratorAggregate
+class EasyArray implements ArrayAccess, IteratorAggregate, Countable
 {
     /**
      * Stores data in array
@@ -99,7 +99,7 @@ class EasyArray implements ArrayAccess, IteratorAggregate
     /**
      * Get element from the data by key
      * @param string $key Array key
-     * @return mixed
+     * @return mixed|self
      */
     public function __get(string $key): mixed
     {
@@ -181,7 +181,7 @@ class EasyArray implements ArrayAccess, IteratorAggregate
     /**
      * Get element from the data by key
      * @param string $key Array key
-     * @return mixed
+     * @return mixed|self
      */
     public function offsetGet($key): mixed
     {
@@ -210,5 +210,36 @@ class EasyArray implements ArrayAccess, IteratorAggregate
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->data);
+    }
+
+    /**
+     * Count the total number of elements
+     *
+     * @return integer
+     */
+    public function count(): int
+    {
+        return count($this->data);
+    }
+
+    /**
+     * Push new values to the array
+     *
+     * @param array ...$values
+     * @return int
+     */
+    public function push(...$values): int
+    {
+        return array_push($this->data, ...$values);
+    }
+
+    /**
+     * Pop the last item of the array
+     *
+     * @return mixed
+     */
+    public function pop(): mixed
+    {
+        return array_pop($this->data);
     }
 }
