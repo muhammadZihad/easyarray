@@ -8,6 +8,8 @@ This package will allow developers to interact with complex and nested arrays ea
 
 # Usage
 
+## Basics
+
 ```
 use Zihad\Easyarray\EasyArray;
 
@@ -81,8 +83,11 @@ $easyArray = easyArray([
         'framework' => 'Laravel'
     ]
 ]);
+```
 
+## Iterations
 
+```
 // You can use EasyArray in foreach and nested foreach loops
 $easyArray = easyArray([
     'phones' => [
@@ -121,4 +126,58 @@ foreach ($easyArray as $category) {
         }
     }
 }
+```
+
+## Array operations
+
+```
+// Count the total number of elements
+$easyArray = easyArray([
+    'used' => [
+        'iPhone 11',
+        'Samsung s20'
+    ],
+    'fresh' => [
+        'iPhone 13 pro',
+        'One plus 9'
+    ]
+]);
+count($easyArray) // 2
+$easyArray->count() // 2
+
+
+// Array push() method
+$easyArray = easyArray([
+    'used' => [
+        'iPhone 11',
+        'Samsung s20'
+    ],
+    'fresh' => [
+        'iPhone 13 pro',
+        'One plus 9'
+    ]
+], true);
+
+$easyArray->used->push('Pixel 5');
+$easyArray->used->count() // 3
+
+
+// Array pop() method
+$easyArray = easyArray([
+    'used' => [
+        'iPhone 11',
+        'Samsung s20'
+    ]
+]);
+
+$easyArray->merge([
+    'fresh' => [
+        'iPhone 13 pro',
+        'One plus 9'
+    ]
+]);
+
+$easyArray->fresh == null; // false
+$easyArray->pop();
+$easyArray->fresh == null; // true
 ```
