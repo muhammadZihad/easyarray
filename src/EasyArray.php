@@ -212,6 +212,11 @@ class EasyArray implements ArrayAccess, IteratorAggregate, Countable
         return new ArrayIterator($this->data);
     }
 
+    /**
+     * Count the total number of elements
+     *
+     * @return integer
+     */
     public function count(): int
     {
         return count($this->data);
