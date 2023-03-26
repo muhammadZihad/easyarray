@@ -13,9 +13,9 @@ namespace Zihad\Easyarray;
 use IteratorAggregate;
 use ArrayIterator;
 use ArrayAccess;
+use Countable;
 
-
-class EasyArray implements ArrayAccess, IteratorAggregate
+class EasyArray implements ArrayAccess, IteratorAggregate, Countable
 {
     /**
      * Stores data in array
@@ -210,6 +210,11 @@ class EasyArray implements ArrayAccess, IteratorAggregate
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->data);
+    }
+
+    public function count(): int
+    {
+        return count($this->data);
     }
 
     /**
